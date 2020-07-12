@@ -29,7 +29,7 @@ MEDIA_URL = "/img/"
 SECRET_KEY = 'tlc8th0#%n(yu_re5*stjc4i428%mql8n7^*k+k2$v@b-ih3um'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [*]
 
@@ -128,3 +128,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
