@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 django = "==3.0"
 gunicorn = "==20.0.4"
-whitenoise = "==5.1.0"
+whitenoise = {extras = ["brotli"], version = "*"}
 pillow = "==2.2.1"
 
 [requires]
