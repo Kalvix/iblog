@@ -7,6 +7,8 @@ from django.views.generic import ListView
 from projects.models import Project, ProjectCategory
 from projects import models
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
 # def project_index(request):
@@ -35,8 +37,20 @@ def project_list(request):
 	project = Project.objects.all()
 	images = Project.objects.all()
 	# context = {'data': project}
-	context['all_projects'] = project
+	# context['all_projects'] = project
 	context['image_data'] =  images
+
+	page = request.GET.get('page',1)
+	paginator = Paginator(project,3)
+	try:
+		projects = paginator.page(page)
+	except PageNotAnInteger:
+		projects = paginator.page(1)
+	except EmptyPage:
+		projects = paginator.page(paginator.num_pages)
+
+	context['all_projects'] = projects
+
 	return render(request, 'base_2.html', context)
 
 def images_list(request):
@@ -48,6 +62,8 @@ def images_list(request):
 class ProductListView(ListView):
 	template_name = "base_2.html"
 	paginate_by = 3
+	context_object_name = 'projects' ## default object_list
+	# queryset = models.Project.objects.all()
 
 	def get_queryset(self):
 		xx = models.Project.objects.all()
